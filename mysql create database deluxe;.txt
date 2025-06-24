@@ -1,0 +1,204 @@
+mysql> create database deluxe;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use deluxe;
+Database changed
+mysql> create table (
+    -> idn int primary key,
+    -> name varchar(50),
+    -> address varchar(50),
+    -> age int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(
+idn int primary key,
+name varchar(50),
+address varchar(50),
+age int)' at line 1
+mysql> create table boys (
+    -> id int primary key,
+    -> name varchar(50),
+    -> address varchar(50),
+    -> age int);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc boys;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(50) | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into boys (id,name,address,age) values (1,'abhinay','hyd',24),(2,'abhi','west',25),(3,'mahato','bengal',23),(4,'abhin','bihar',20);
+Query OK, 4 rows affected (0.05 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from boys;
++----+---------+---------+------+
+| id | name    | address | age  |
++----+---------+---------+------+
+|  1 | abhinay | hyd     |   24 |
+|  2 | abhi    | west    |   25 |
+|  3 | mahato  | bengal  |   23 |
+|  4 | abhin   | bihar   |   20 |
++----+---------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> select name from boys;
++---------+
+| name    |
++---------+
+| abhinay |
+| abhi    |
+| mahato  |
+| abhin   |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> select name,age from boys;
++---------+------+
+| name    | age  |
++---------+------+
+| abhinay |   24 |
+| abhi    |   25 |
+| mahato  |   23 |
+| abhin   |   20 |
++---------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from boys where age>23;
++----+---------+---------+------+
+| id | name    | address | age  |
++----+---------+---------+------+
+|  1 | abhinay | hyd     |   24 |
+|  2 | abhi    | west    |   25 |
++----+---------+---------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from boys where age>23 and id=3;
+Empty set (0.00 sec)
+
+mysql> selct * from boys where age>23 and id=2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct * from boys where age>23 and id=2' at line 1
+mysql> select * from boys  where age>23 and id=1;
++----+---------+---------+------+
+| id | name    | address | age  |
++----+---------+---------+------+
+|  1 | abhinay | hyd     |   24 |
++----+---------+---------+------+
+1 row in set (0.00 sec)
+
+mysql> update address from boys where 'hyd'='pune';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from boys where 'hyd'='pune'' at line 1
+mysql> update boys set address='hyd' where id=1;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from boys;
++----+---------+---------+------+
+| id | name    | address | age  |
++----+---------+---------+------+
+|  1 | abhinay | hyd     |   24 |
+|  2 | abhi    | west    |   25 |
+|  3 | mahato  | bengal  |   23 |
+|  4 | abhin   | bihar   |   20 |
++----+---------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> update boys set address='pune' where id=1;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from boys;
++----+---------+---------+------+
+| id | name    | address | age  |
++----+---------+---------+------+
+|  1 | abhinay | pune    |   24 |
+|  2 | abhi    | west    |   25 |
+|  3 | mahato  | bengal  |   23 |
+|  4 | abhin   | bihar   |   20 |
++----+---------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> alter table boys add mobile int;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from boys;
++----+---------+---------+------+--------+
+| id | name    | address | age  | mobile |
++----+---------+---------+------+--------+
+|  1 | abhinay | pune    |   24 |   NULL |
+|  2 | abhi    | west    |   25 |   NULL |
+|  3 | mahato  | bengal  |   23 |   NULL |
+|  4 | abhin   | bihar   |   20 |   NULL |
++----+---------+---------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> update boys set mobile=123 where id=1;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from boys;
++----+---------+---------+------+--------+
+| id | name    | address | age  | mobile |
++----+---------+---------+------+--------+
+|  1 | abhinay | pune    |   24 |    123 |
+|  2 | abhi    | west    |   25 |   NULL |
+|  3 | mahato  | bengal  |   23 |   NULL |
+|  4 | abhin   | bihar   |   20 |   NULL |
++----+---------+---------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> alter table boys modify name varchar(60);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc boys;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | NO   | PRI | NULL    |       |
+| name    | varchar(60) | YES  |     | NULL    |       |
+| address | varchar(50) | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| mobile  | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table boys drop column mobile;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from boys;
++----+---------+---------+------+
+| id | name    | address | age  |
++----+---------+---------+------+
+|  1 | abhinay | pune    |   24 |
+|  2 | abhi    | west    |   25 |
+|  3 | mahato  | bengal  |   23 |
+|  4 | abhin   | bihar   |   20 |
++----+---------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> select sum(age);
+ERROR 1054 (42S22): Unknown column 'age' in 'field list'
+mysql> select sum(age) from boys;
++----------+
+| sum(age) |
++----------+
+|       92 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select avg(age);
+ERROR 1054 (42S22): Unknown column 'age' in 'field list'
+mysql> select avg(age) from boys;
++----------+
+| avg(age) |
++----------+
+|  23.0000 |
++----------+
+1 row in set (0.00 sec)
