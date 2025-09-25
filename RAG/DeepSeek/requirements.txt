@@ -1,0 +1,12 @@
+streamlit
+langchain
+langchain-ollama
+torch
+transformers
+sentence-transformers
+chromadb
+numpy
+torchaudio
+opencv-python
+soundfile
+ipython
