@@ -79,4 +79,5 @@ SELECT * FROM cust
 -- Customers whose name ends with y.
 SELECT * FROM cust
   WHERE
+
     name LIKE '%y'
